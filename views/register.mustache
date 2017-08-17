@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="/main.css" />
+</head>
+<body>
+  <header>
+    {{#id}}
+    <h1>Edit Your Profile with Gabble</h1> 
+    {{/id}}
+    {{^id}}
+    <h1>Register Your Profile with Gabble</h1>
+    {{/id}}
+    <nav>
+    </nav>
+  </header>
+	<div class = "container">
+  	<form action = "/register" method = "post">
+  		<input placeholder = "Username" type = "text" name = "username" value = "username"/>
+      </br>
+      </br>
+  		<input placeholder = "Password" type = "text" name = "password"/>
+      </br>
+      </br>
+      <input placeholder = "First Name" type = "text" name = "fname" value = "fname"/>
+      </br>
+      </br>
+      <input placeholder = "Last Name" type = "text" name = "lname" value = "lname"/>
+      </br>
+      </br>
+      <input placeholder = "Email" type = "text" name = "email" value = "email"/>
+      </br>
+      </br>
+      <input placeholder = "Phone" type = "text" name = "phone" value = "phone"/>
+  		<button type = "submit">Login</button>
+  	</form>
+  	</div>
+</body>
+</html>

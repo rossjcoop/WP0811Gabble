@@ -1,0 +1,27 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="/main.css" />
+</head>
+<body>
+  <header>
+    <h1>Gabble</h1> 
+    <nav>
+    <a href = "/login">Login</a>
+    <a href = "/register">Create Account</a>
+    <a href = "/messenger">Messages</a>
+    <a href = "/gabbs">Gabbs</a>
+    </nav>
+  </header>
+	<div class = "container">
+  	<h3>Current Peeps</h3>
+  <div><a href="/add">Add Student</a></div>
+  <ul>
+    {{#peeps}}
+      <li><a href="/edit/{{id}}">{{fname}} {{lname}} AKA {{nickname}} can be reached at {{email}}</a></li>
+    {{/peeps}}
+  </ul>
+</body>
+</html>
