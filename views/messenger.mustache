@@ -7,16 +7,25 @@
 </head>
 <body>
   <header>
-    <h1>Gabb it up!</h1> 
+    <h1>Gabble</h1> 
     <nav>
+    <a href = "/login">Login</a>
+    <a href = "/register">Create Account</a>
+    <a href = "/user/messenger">Messages</a>
+    <a href = "/user/index">Gabbs</a>
     </nav>
   </header>
-	<div class = "container">
-  	<form action = "/login" method = "post">
-  		<label>Username</label>
+  <main>
+    <h3>Grumble It Up You Grumbling Grumbler...</h3>
+    <div class = "container">
     
-  		<button type = "submit">Login</button>
-  	</form>
-  	</div>
+    <form action = "/user/messenger" method = "post">
+    <input type = "text" name = "aGrumb" placeholder = "Grumbles here..."/>
+    <input type = "hidden" name = "userid" value = "{{userid}}"/>
+    <button type = "submit">Gabb Away</button>
+    
+    </form>
+    </div>
+  </main>
 </body>
 </html>

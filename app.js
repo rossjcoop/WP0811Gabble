@@ -3,7 +3,7 @@ const app = express()
 const path = require('path')
 const mustacheExpress = require('mustache-express')
 const bodyParser = require('body-parser')
-
+const Authenticate = require('./middle/auth')
 const publicRoutes = require('./routes/publicroutes')
 const userRoutes = require('./routes/userroutes')
 const session = require("express-session")
@@ -22,6 +22,7 @@ app.use(session({
 }))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 
 
 
