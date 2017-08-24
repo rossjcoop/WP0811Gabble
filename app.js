@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-app.use("/user", userRoutes)
+app.use("/user", Authenticate, userRoutes)
 app.use("/", publicRoutes)
 
 

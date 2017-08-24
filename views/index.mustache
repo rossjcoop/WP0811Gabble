@@ -12,24 +12,25 @@
     <a href = "/login">Login</a>
     <a href = "/register">Create Account</a>
     <a href = "/user/messenger">Messages</a>
-    <a href = "/user/index">Gabbs</a>
+    <a href = "/user/index">Grumbs</a>
     </nav>
   </header>
   <main>
     <h3>Grumblers Grumbling with Many Grumbles...</h3>
     {{#data}}
      <div class = "container">
+     {{#status}}
        <div class = "gabbContainer">
         <p>{{fname}}: {{message}}<p>
         <span>{{datetime}}</span>
         {{#likecount}}
-        <a href = ""><span>{{likecount}} likes</a>
+        <a href = "/user/likecount/{{id_grumble}}"><span>{{likecount}} likes</a>
         {{/likecount}}
         {{^likecount}}
         <span>No likes yet.</span>
         {{/likecount}}
-       </div>
-       <div class = "likeContainer">
+        </div>
+        <div class = "likeContainer">
         <form action = "/user/addlike" method = "post">
         <input type = "hidden" value = "{{userid}}" name = "userid"/>
         <input type = "hidden" value = "{{id_grumble}}" name = "grumbId"/>
@@ -37,11 +38,13 @@
         </form>
         </br>
         {{#deletebut}}
-        <form action = "/deletePost" method = "delete">
+        <form action = "/user/removePost" method = "post">
+        <input type = "hidden" value = "{{id_grumble}}" name = "grumbId"/>
         <button type = "submit">Delete</button>
         </form>
         {{/deletebut}}
        </div>
+      {{/status}}
       </div>
     {{/data}}  
   </main> 

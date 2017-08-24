@@ -1,0 +1,8 @@
+html {box-sizing:border-box;}
+*, *:before, *:after {box-sizing:inherit;}
+
+
+h1 {
+	font-family: 'Permanent Marker', cursive;
+	font-size: 36px;
+}

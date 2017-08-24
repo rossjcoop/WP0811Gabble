@@ -7,32 +7,41 @@ router.get("/index", function(req, res, next){
 
 	const loggedUser = req.session.user
 
-	const updateDel = `
+	const updateDelUser = `
+	UPDATE Grumbles
+	SET deletebut = 1 
+	WHERE userid = ?`
 
-	UPDATE Gabble.Grumbles
-	SET deletebut = 1 - deletebut
-	WHERE userid = ?
+	const updateDelNoUser = `
+	UPDATE Grumbles
+	SET deletebut = 0
+	WHERE userid != ?`
 
-	 `
-
-
+	const sql = `
+	SELECT g.id_grumble, g.userid, g.message, g.datetime, g.status, g.likecount, g.deletebut, p.fname 
+	FROM Grumbles g 
+	JOIN Peeps p 
+	ON g.userid = p.userid`
 	
 
-	conn.query(updateDel, [loggedUser], function (err, results, fields){
+	conn.query(updateDelUser, [loggedUser], function (err, results, fields){
 		
 		if(!err){
-			const sql = `
-			SELECT g.id_grumble, g.userid, g.message, g.datetime, g.status, g.likecount, g.deletebut, p.fname 
-			FROM Grumbles g 
-			JOIN Peeps p 
-			ON g.userid = p.userid`
+			conn.query(updateDelNoUser, [loggedUser], function( err, results, fields){
 
-			conn.query(sql, function(err, results, fields){
-			let data = results
-		
 				if(!err){
-					res.render("index", {data: data})		
+					conn.query(sql, function(err, results, fields){
+						let data = results
+		
+						if(!err){
+							res.render("index", {data: data})		
 				
+						} else {
+							console.log(err)
+							res.status(500).send("Internal Error")
+						}
+					})	
+
 				} else {
 					console.log(err)
 					res.status(500).send("Internal Error")
@@ -126,13 +135,62 @@ router.post('/addlike', function(req, res, next){
 	})
 });
 
-///1. Add like to liker table. Show what id of post by userid of person liked.
-///2. Add a like to the count
+router.get('/likecount/:id', function(req, res, next){
+
+	const grumbleId = req.params.id
+
+	const sql = `
+	SELECT 
+    l.userid, l.grumbId, p.fname
+	FROM
+    Gabble.Likers l
+    JOIN
+    Gabble.Peeps p ON l.userid = p.userid
+	WHERE l.grumbId = ?`
+
+	conn.query(sql, [grumbleId], function(err, results, fields){
+		
+		let data = results
+		
+		if(!err){
+			res.render('likers', {data: data})
+
+		} else {
+			console.log(err)
+			res.status(500).send("Error!")
+		}
+
+	})
+
+});
 
 
+router.post('/removePost', function(req, res, next){
+
+	const grumbleId = req.body.grumbId
+
+	const sql = `
+	UPDATE Grumbles
+	SET status = 0
+	WHERE id_grumble = ?`
 
 
+	conn.query(sql, [grumbleId], function(err, results, fields){
+
+		if(!err){
+			res.redirect('index')
+
+		} else {
+			console.log(err)
+			res.status(500).send("Error!")
+		}
+
+	})
+
+});
 
 
 
 module.exports = router
+
+
