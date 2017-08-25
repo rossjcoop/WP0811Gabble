@@ -4,25 +4,29 @@
   <meta charset="UTF-8">
   <title>Document</title>
   <link rel="stylesheet" href="/main.css" />
+  <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>Gabble</h1> 
+  <header class = "head4">
+    <h1>Grumble :-/</h1> 
     <nav>
-    <a href = "/login">Login</a>
+    <span>Logged in as {{user}}, </span><a href = "/login">Logout</a>
+    </br>
     <a href = "/register">Create Account</a>
-    <a href = "/user/messenger">Messages</a>
-    <a href = "/user/index">Gabbs</a>
+    </br>
+    <a href = "/user/messenger">Submit Your Grumble</a>
+    </br>
+    <a href = "/user/index">Grumbs</a>
     </nav>
   </header>
   <main>
-    <h3>Grumble It Up You Grumbling Grumbler...</h3>
+    <h3>Hey {{user}}! Get Grumbling...</h3>
     <div class = "container">
     
     <form action = "/user/messenger" method = "post">
     <input type = "text" name = "aGrumb" placeholder = "Grumbles here..."/>
     <input type = "hidden" name = "userid" value = "{{userid}}"/>
-    <button type = "submit">Gabb Away</button>
+    <button type = "submit">Grumb</button>
     
     </form>
     </div>

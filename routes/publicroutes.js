@@ -17,6 +17,7 @@ router.get('/', Authenticate, function(req, res, next){
 
 
 router.get("/login", function(req, res, next){
+	req.session.destroy();
 	res.render('login')
 });
 
@@ -65,7 +66,8 @@ router.post("/login", function(req, res, next){
 //////////REGISTERING A NEW USER/////////////////////////////////////////////
 
 router.get("/register", function(req, res, next){
-	res.render('register')
+	const loggedUser = req.session.user
+	res.render('register', {user: loggedUser})
 });
 
 
@@ -86,21 +88,21 @@ router.post("/register", function(req, res, next){
 	INSERT INTO users (userid, password)
 	VALUES (?, ?)`
 
-	/////INSERTING INTO PEEPS TABLE
+	
 	conn.query(peepData, [username, fname, lname, email, phone], function(err, results, fields){
 
-		if(!err){////HASHING THE PASSWORD THEN INSERTING INTO USERS TABLE
+		if(!err){
 
 			bcrypt.genSalt(10, function(err, salt) {
     		bcrypt.hash(password, salt, function(err, hash) {
-        // Store hash in your password DB. 
+        
         		conn.query(usersData, [username, hash], function(err, results, fields){
       				if(!err){
       					req.session.user = username
-      					res.redirect("/")
+      					res.redirect("/user/index")
     				} else {
     					console.log(err)
-    					res.send("Error registering your info, try again!", err)
+    					res.status(500).send("Internal Error. Shit.")
     				}
   				})
     		})
@@ -108,7 +110,7 @@ router.post("/register", function(req, res, next){
 
 		} else {
 			console.log(err)
-			res.send("Error registering your info, try again!", err)
+			res.status(400).send("Try again. You must enter username and password!")
 		}
 	})
 });

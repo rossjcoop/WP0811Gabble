@@ -7,36 +7,41 @@
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>Login to Grumble</h1> 
+  <header class = "head3">
+    <h1>Grumble :-/ </h1>
     <nav>
+    {{#user}}
+    <span>Logged in as {{user}}, </span><a href = "/login">Logout</a>
+    </br>
+    <a href = "/register">Create Account</a>
+    </br>
+    <a href = "/user/messenger">Submit Your Grumble</a>
+    </br>
+    <a href = "/user/index">Grumbs</a> 
+    {{/user}}
+    {{^user}}
+    <span>You are not logged in. </span><a href = "/login">Login</a>
+    {{/user}}
     </nav>
   </header>
   <main>
-  <div class = "images">
-    <img src = "./images/Grump.jpg"/>
-  </div>
 	<div class = "container">
   	<form action = "/login" method = "post">
   		<label>Username</label>
       </br>
-      </br>
   		<input type = "text" name = "username"/>
-      </br>
       </br>
   		<label>Password</label>
       </br>
-      </br>
   		<input type = "text" name = "password"/>
-      </br>
       </br>
   		<button type = "submit">Login</button>
   	</form>
-  	</div>
+  </div>
   <div class = "container">
     </br>
     <form action = "/register" method = "get">
-      <span>New to Grumble? Register to get your grumbles heard..</span>
+      <h2>Grumbling? Register to get your grumbles grumbled. :-/</h2>
       <button type = "submit">Register</button>
     </form>
   </div>

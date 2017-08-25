@@ -4,24 +4,28 @@
   <meta charset="UTF-8">
   <title>Grumble Index</title>
   <link rel="stylesheet" href="/main.css" />
+  <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>Grumble</h1> 
+  <header class = "head1">
+    <h1>Grumble :-\</h1> 
     <nav>
-    <a href = "/login">Login</a>
+    <span>Logged in as {{user}}, </span><a href = "/login">Logout</a>
+    </br>
     <a href = "/register">Create Account</a>
-    <a href = "/user/messenger">Messages</a>
+    </br>
+    <a href = "/user/messenger">Submit A Grumble</a>
+    <br>
     <a href = "/user/index">Grumbs</a>
     </nav>
   </header>
   <main>
-    <h3>Grumblers Grumbling with Many Grumbles...</h3>
-    {{#data}}
-     <div class = "container">
-     {{#status}}
+    <h3>Grumblers Grumbling with Many Grumbles...</h3> 
+      <div class = "container">    
        <div class = "gabbContainer">
-        <p>{{fname}}: {{message}}<p>
+        {{#data}}
+        {{#status}}       
+        <h1 class = "grumb">{{fname}} grumbles: {{message}}<h1>
         <span>{{datetime}}</span>
         {{#likecount}}
         <a href = "/user/likecount/{{id_grumble}}"><span>{{likecount}} likes</a>
@@ -29,24 +33,21 @@
         {{^likecount}}
         <span>No likes yet.</span>
         {{/likecount}}
-        </div>
-        <div class = "likeContainer">
         <form action = "/user/addlike" method = "post">
         <input type = "hidden" value = "{{userid}}" name = "userid"/>
         <input type = "hidden" value = "{{id_grumble}}" name = "grumbId"/>
         <button type = "submit">Like</button>
         </form>
-        </br>
         {{#deletebut}}
         <form action = "/user/removePost" method = "post">
         <input type = "hidden" value = "{{id_grumble}}" name = "grumbId"/>
         <button type = "submit">Delete</button>
-        </form>
+        </form> 
         {{/deletebut}}
-       </div>
-      {{/status}}
-      </div>
-    {{/data}}  
-  </main> 
+        {{/status}}
+        {{/data}}
+       </div> 
+      </div>       
+  </main>
 </body>
 </html>

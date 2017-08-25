@@ -4,42 +4,54 @@
   <meta charset="UTF-8">
   <title>Document</title>
   <link rel="stylesheet" href="/main.css" />
+  <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
 </head>
 <body>
-  <header>
-    {{#id}}
-    <h1>Edit Your Profile with Gabble</h1> 
-    {{/id}}
-    {{^id}}
-    <h1>Register Your Profile with Gabble</h1>
-    {{/id}}
+  <header class = "head5">
+   <h1>Grumble :-/ </h1>
     <nav>
-      <a href = "/login">Login</a>
-      <a href = "/register">Create Account</a>
-      <a href = "/user/messenger">Messages</a>
-      <a href = "/user/index">Gabbs</a>
+    {{#user}}
+    <span>Logged in as {{user}}, </span><a href = "/login">Logout</a>
+    </br>
+    <a href = "/register">Create Account</a>
+    </br>
+    <a href = "/user/messenger">Submit Your Grumble</a>
+    </br>
+    <a href = "/user/index">Grumbs</a> 
+    {{/user}}
+    {{^user}}
+    <span>You are not logged in. </span><a href = "/login">Login</a>
+    {{/user}}
     </nav>
   </header>
 	<div class = "container">
   	<form action = "/register" method = "post">
-  		<input placeholder = "Username" type = "text" name = "username" value = "username"/>
+      <label>Create a Username:</label>
       </br>
+  		<input type = "text" name = "username"/>
       </br>
-  		<input placeholder = "Password" type = "text" name = "password"/>
+      <label>Password:</label>
       </br>
+  		<input type = "text" name = "password"/>
       </br>
-      <input placeholder = "First Name" type = "text" name = "fname" value = "fname"/>
+      <label>First Name:</label>
       </br>
+      <input type = "text" name = "fname"/>
       </br>
-      <input placeholder = "Last Name" type = "text" name = "lname" value = "lname"/>
+      <label>Last Name:</label>
       </br>
+      <input type = "text" name = "lname"/>
       </br>
-      <input placeholder = "Email" type = "text" name = "email" value = "email"/>
+      <label>Email:</label>
       </br>
+      <input type = "text" name = "email"/>
       </br>
-      <input placeholder = "Phone" type = "text" name = "phone" value = "phone"/>
+      <label>Phone number:</label>
+      </br>
+      <input type = "text" name = "phone"/>
+      </br>
   		<button type = "submit">Login</button>
   	</form>
-  	</div>
+  </div>
 </body>
 </html>

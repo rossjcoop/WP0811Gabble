@@ -21,7 +21,8 @@ router.get("/index", function(req, res, next){
 	SELECT g.id_grumble, g.userid, g.message, g.datetime, g.status, g.likecount, g.deletebut, p.fname 
 	FROM Grumbles g 
 	JOIN Peeps p 
-	ON g.userid = p.userid`
+	ON g.userid = p.userid
+	ORDER BY g.datetime DESC`
 	
 
 	conn.query(updateDelUser, [loggedUser], function (err, results, fields){
@@ -34,7 +35,7 @@ router.get("/index", function(req, res, next){
 						let data = results
 		
 						if(!err){
-							res.render("index", {data: data})		
+							res.render("index", {data: data, user: loggedUser})		
 				
 						} else {
 							console.log(err)
@@ -60,10 +61,10 @@ router.get("/index", function(req, res, next){
 
 router.get('/messenger', function(req, res, next){
 	const userid = req.session.user
-	res.render("messenger", {userid: userid})
+	res.render("messenger", {user: userid,})
 })
 
-/////user posting a grumble
+
 router.post('/messenger', function(req, res, next){
 	
 	const aGrumb = req.body.aGrumb
@@ -107,7 +108,7 @@ router.post('/addlike', function(req, res, next){
 	WHERE id_grumble = ?`
 
 
-	conn.query(addLikers, [userid, grumbId], function(err, results, fields){
+	conn.query(addLikers, [loggedUser, grumbId], function(err, results, fields){
 		if(!err){
 			conn.query(getLikes, [grumbId], function(err, results, fields){
 				if(!err){
@@ -136,7 +137,7 @@ router.post('/addlike', function(req, res, next){
 });
 
 router.get('/likecount/:id', function(req, res, next){
-
+	const userid = req.session.user
 	const grumbleId = req.params.id
 
 	const sql = `
@@ -153,7 +154,7 @@ router.get('/likecount/:id', function(req, res, next){
 		let data = results
 		
 		if(!err){
-			res.render('likers', {data: data})
+			res.render('likers', {data: data, user: userid})
 
 		} else {
 			console.log(err)
